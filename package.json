@@ -1,0 +1,37 @@
+{
+  "name": "strategist",
+  "version": "1.0.0",
+  "description": "A JSONSchema collection manager and validator",
+  "engines": {
+    "node": ">=4"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "keywords": [
+    "jsonschema"
+  ],
+  "author": "sandro pasquali <spasquali@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^2.5.0",
+    "is-my-json-valid": "^2.12.3",
+    "jsen": "^0.6.0",
+    "lodash": "^3.10.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandro-pasquali/strategist.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sandro-pasquali/strategist/issues"
+  },
+  "homepage": "https://github.com/sandro-pasquali/strategist",
+  "devDependencies": {
+    "surveyor": "^2.0.0"
+  }
+}
