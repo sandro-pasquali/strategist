@@ -1,5 +1,8 @@
 "use strict";
 
 require('surveyor')({
-    testDir: __dirname
+    testDir: __dirname,
+    globalFixtures: [
+        'testSchema'
+    ]
 });

@@ -6,7 +6,7 @@ var strategist = require('../../lib')();
 module.exports = function(test, Promise) {
 
     var testkey = 'testkey';
-    var testSchema = require(path.resolve(__dirname, '../assets/test_schema.json'));
+    var testSchema = this;
 
     var goodJSON = {
         firstName: 'Jack',
