@@ -1,6 +1,7 @@
 "use strict";
 
 var path = require('path');
+var _ = require('lodash');
 var strategist = require('../../lib')();
 
 module.exports = function(test, Promise) {
@@ -26,14 +27,18 @@ module.exports = function(test, Promise) {
 
         var schemaSet = strategist.set(testkey, testSchema);
         var schemaGet = strategist.get(testkey);
+        var good = strategist.validate(testkey, goodJSON);
+        var bad = strategist.validate(testkey, badJSON);
 
-        test.ok(schemaSet, 'schema was successfully #set using -> ' + validator);
+        test.ok(schemaGet, 'schema was successfully #set using -> ' + validator);
 
         test.equal(schemaSet, schemaGet, '#get got the same schema that was #set using -> ' + validator);
 
-        test.equal(strategist.validate(testkey, goodJSON), true, 'valid JSON is passing using -> ' + validator);
+        test.equal(good.valid, true, 'valid JSON is passing using -> ' + validator);
 
-        test.notEqual(strategist.validate(testkey, badJSON), true, 'invalid JSON is failing using -> ' + validator);
+        test.notEqual(bad.valid, true, 'invalid JSON is failing using -> ' + validator);
+
+        test.ok(_.isArray(bad.errors), 'Error array being returned on failed validations using -> ' + validator);
     })
 
     // Test API call signature error handling
@@ -55,11 +60,21 @@ module.exports = function(test, Promise) {
         strategist.get('foo')
     }, 'Schemap throws if non-existent key sent to #get');
 
+    // #original
+    //
+    test.deepEqual(strategist.original('testkey'), testSchema, 'Correctly storing #original Schema');
+
+    // #defaults
+    //
+    test.deepEqual({age:18}, strategist.defaults('testkey'), 'Correctly fetching #defaults');
+
     // #use
     //
-    test.equal(strategist.use('foo'), false, 'Schemap returns false on unrecognized validator name');
+    test.throws(function() {
+        strategist.use('foo');
+    }, 'Schemap throws on unrecognized validator #use');
 
-    test.equal(strategist.use('ajv'), true, 'Schemap returns true on recognized validator name');
+    test.ok(_.isFunction(strategist.use('ajv')), 'Schemap returns validator on recognized validator name');
 
     // #validate
     //

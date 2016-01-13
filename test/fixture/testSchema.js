@@ -15,7 +15,8 @@ module.exports = function(test) {
             "age": {
                 "description": "Age in years",
                 "type": "integer",
-                "minimum": 0
+                "minimum": 0,
+                "default": 18
             }
         },
         "required": ["firstName", "lastName"]
