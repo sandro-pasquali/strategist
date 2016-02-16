@@ -13,17 +13,34 @@ module.exports = function(test, Promise) {
         firstName: 'Jack',
         lastName: 'Spratt'
     };
+
     var badJSON = {
         firstName: 'Jack',
         lastName: 'Spratt',
         age: "eighteeen" // Error! Schema expects an Integer
     };
 
+    var badSchema = {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "strategist test",
+        "type": "object",
+        "properties": {
+            "foobar": {
+                type: "this is an invalid type"
+            }
+        }
+    };
+
     // Test against all validators
     //
-    ['ajv','jsen','isMyJSONValid'].forEach(function(validator) {
+    ['ajv','isMyJSONValid'].forEach(function(validator) {
 
-        strategist.use(validator)
+        strategist.use(validator);
+
+        test.throws(function() {
+            strategist.validateSchema(badSchema);
+        }, 'Correctly throws when invalid schema sent to #validateSchema using -> ' + validator);
+
 
         var schemaSet = strategist.set(testkey, testSchema);
         var schemaGet = strategist.get(testkey);

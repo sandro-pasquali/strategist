@@ -1,6 +1,6 @@
 {
   "name": "strategist",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A JSONSchema collection manager and validator",
   "engines": {
     "node": ">=4"
@@ -17,7 +17,6 @@
   "dependencies": {
     "ajv": "^2.5.0",
     "is-my-json-valid": "^2.12.3",
-    "jsen": "^0.6.0",
     "json-schema-defaults": "^0.1.1",
     "lodash": "^3.10.1"
   },
