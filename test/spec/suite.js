@@ -38,7 +38,7 @@ module.exports = function(test, Promise) {
         strategist.use(validator);
 
         test.throws(function() {
-            strategist.validateSchema(badSchema);
+            strategist.compile(badSchema);
         }, 'Correctly throws when invalid schema sent to #validateSchema using -> ' + validator);
 
 
